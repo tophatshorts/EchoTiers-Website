@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoTiers</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(
+135deg,
+#f8fdff,
+#eef9ff,
+#dff4ff
+);
+color:#1f2937;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(0,0,0,.05);
+}
+
+.logo{
+font-size:2rem;
+font-weight:900;
+color:#27a9ff;
+}
+
+.logo span{
+color:#0d5db8;
+}
+
+.nav-links{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+.nav-links a{
+text-decoration:none;
+font-weight:600;
+color:#4b5563;
+}
+
+.nav-links a:hover{
+color:#27a9ff;
+}
+
+.header{
+text-align:center;
+padding:80px 20px 40px;
+}
+
+.header h1{
+font-size:4rem;
+color:#27a9ff;
+margin-bottom:10px;
+}
+
+.header h1 span{
+font-size:4rem;
+color:#0d5db8;
+margin-bottom:10px;
+}
+
+
+.header p{
+color:#64748b;
+}
+
+.search{
+max-width:700px;
+margin:20px auto;
+padding:0 20px;
+}
+
+.search input{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+font-size:1rem;
+}
+
+.leaderboard{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+.player{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.rank{
+font-size:1.6rem;
+font-weight:900;
+color:#27a9ff;
+}
+
+.name{
+font-size:1.2rem;
+font-weight:700;
+}
+
+.right{
+text-align:right;
+}
+
+.elo{
+font-weight:900;
+color:#27a9ff;
+}
+
+.empty{
+text-align:center;
+color:#6b7280;
+font-size:1.1rem;
+padding:20px;
+}
+
+footer{
+margin-top:60px;
+background:white;
+padding:40px;
+text-align:center;
+}
+
+footer h3{
+color:#27a9ff;
+margin-bottom:10px;
+}
+
+@media(max-width:800px){
+
+nav{
+flex-direction:column;
+gap:20px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.player{
+flex-direction:column;
+gap:15px;
+text-align:center;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+Echo<span>Tiers</span>
+</div>
+
+<ul class="nav-links">
+<li><a href="home.html">Home</a></li>
+<li><a href="echotiers.html">EchoTiers</a></li>
+<li><a href="members.html">Members</a></li>
+<li><a href="history.html">History</a></li>
+<li><a href="about.html">About</a></li>
+</ul>
+
+</nav>
+
+<div class="header">
+
+<h1>Echo<span>Tiers</h1>
+
+<p>
+Official PvP Rankings
+</p>
+
+</div>
+
+<div class="search">
+<input
+type="text"
+id="searchInput"
+placeholder="Search Player..."
+>
+</div>
+
+<div class="leaderboard" id="leaderboard"></div>
+
+<footer>
+
+<h3>EchoTiers</h3>
+
+<p>Season 1 Rankings</p>
+
+</footer>
+
+<script type="module">
+
+import { getPlayers } from "./players.js";
+
+let players = [];
+
+function renderPlayers(list){
+
+const board =
+document.getElementById("leaderboard");
+
+board.innerHTML="";
+
+if(list.length===0){
+
+board.innerHTML =
+'<p class="empty">No players found.</p>';
+
+return;
+
+}
+
+list.forEach((player,index)=>{
+
+board.innerHTML += `
+
+<div class="player">
+
+<div class="left">
+
+<div class="rank">
+#${index+1}
+</div>
+
+<div class="name">
+${player.username || "?"}
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="elo">
+${player.elo ?? 100} ELO
+</div>
+
+<div>
+${player.wins || 0}W • ${player.losses || 0}L
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+async function loadPlayers(){
+
+const board =
+document.getElementById("leaderboard");
+
+board.innerHTML =
+'<p class="empty">Loading players...</p>';
+
+try{
+
+const dbPlayers = await getPlayers();
+
+const hardcodedMembers = [
+  { username: "LowkeyIntrovert", elo: 100 },
+  { username: "Hollow", elo: 100 }
+];
+
+const hardcodedNames = new Set(hardcodedMembers.map(m => m.username.toLowerCase()));
+
+players = [...hardcodedMembers, ...dbPlayers.filter(p => !hardcodedNames.has((p.username || "").toLowerCase()))];
+
+players.sort((a,b)=>(b.elo||0)-(a.elo||0));
+
+renderPlayers(players);
+
+}catch(err){
+
+console.error("Uh oh! Might need to ask @hollovv.:",err);
+
+board.innerHTML =
+'<p class="empty">Couldn\'t load players. Check the browser console for details.</p>';
+
+}
+
+}
+
+loadPlayers();
+
+document
+.getElementById("searchInput")
+.addEventListener("input",e=>{
+
+const value =
+e.target.value.toLowerCase();
+
+const filtered =
+players.filter(player=>
+(player.username||"")
+.toLowerCase()
+.includes(value)
+);
+
+renderPlayers(filtered);
+
+});
+
+</script>
+
+</body>
+</html>

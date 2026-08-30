@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match History</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(
+135deg,
+#f8fdff,
+#e6f7ff,
+#d0efff
+);
+min-height:100vh;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+}
+
+.logo{
+font-size:2rem;
+font-weight:800;
+color:#29a9ff;
+}
+
+.logo span{
+color:#0b4ea2;
+}
+
+.back-btn{
+text-decoration:none;
+font-weight:700;
+color:#29a9ff;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+.title{
+text-align:center;
+margin-bottom:40px;
+}
+
+.title h1{
+font-size:3rem;
+color:#29a9ff;
+}
+
+.match{
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+margin-bottom:20px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+}
+
+.winner{
+color:#00a651;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.elo{
+color:#29a9ff;
+font-weight:700;
+}
+
+.date{
+margin-top:10px;
+color:#777;
+font-size:.9rem;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+
+<div class="logo">
+Echo<span>Gaming</span>
+</div>
+
+<a href="home.html" class="back-btn">
+← Home
+</a>
+
+</nav>
+
+<div class="container">
+
+<div class="title">
+<h1>Match History</h1>
+</div>
+
+<div class="match">
+<div class="winner">🏆 Byan defeated Alex</div>
+<div class="elo">+25 ELO</div>
+<div class="date">24 June 2026</div>
+</div>
+
+<div class="match">
+<div class="winner">🏆 Ryan defeated Noah</div>
+<div class="elo">+18 ELO</div>
+<div class="date">23 June 2026</div>
+</div>
+
+<div class="match">
+<div class="winner">🏆 Alex defeated Ethan</div>
+<div class="elo">+20 ELO</div>
+<div class="date">22 June 2026</div>
+</div>
+
+</div>
+
+</body>
+</html>

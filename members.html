@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members - EchoTiers</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#f8fdff,#eef9ff,#dff4ff);
+color:#1f2937;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(15px);
+}
+
+.logo{
+font-size:2rem;
+font-weight:900;
+color:#27a9ff;
+}
+
+.logo span{
+color:#0d5db8;
+}
+
+.nav-links{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+.nav-links a{
+text-decoration:none;
+font-weight:600;
+color:#4b5563;
+}
+
+.header{
+text-align:center;
+padding:80px 20px;
+}
+
+.header h1{
+font-size:4rem;
+color:#27a9ff;
+}
+
+.members{
+max-width:1200px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+text-align:center;
+}
+
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#27a9ff;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:2rem;
+font-weight:900;
+color:white;
+margin-bottom:15px;
+}
+
+.owner{
+background:#f5b301;
+padding:6px 12px;
+border-radius:999px;
+display:inline-block;
+font-size:.8rem;
+font-weight:700;
+color:white;
+margin-top:10px;
+}
+
+.co-owner{
+background:#f5b301;
+padding:6px 12px;
+border-radius:999px;
+display:inline-block;
+font-size:.8rem;
+font-weight:700;
+color:white;
+margin-top:10px;
+}
+
+.member{
+background:#27a9ff;
+padding:6px 12px;
+border-radius:999px;
+display:inline-block;
+font-size:.8rem;
+font-weight:700;
+color:white;
+margin-top:10px;
+}
+
+.mctier{
+font-size:.85rem;
+color:#6b7280;
+margin-top:6px;
+font-weight:600;
+}
+
+footer{
+margin-top:60px;
+background:white;
+padding:40px;
+text-align:center;
+}
+
+.empty{
+grid-column:1 / -1;
+text-align:center;
+color:#6b7280;
+font-size:1.1rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">
+Echo<span>Tiers</span>
+</div>
+
+<ul class="nav-links">
+<li><a href="home.html">Home</a></li>
+<li><a href="echotiers.html">EchoTiers</a></li>
+<li><a href="members.html">Members</a></li>
+<li><a href="history.html">History</a></li>
+<li><a href="about.html">About</a></li>
+</ul>
+</nav>
+
+<div class="header">
+<h1>Members</h1>
+<p>EchoTiers Community</p>
+</div>
+
+<section class="members" id="membersGrid">
+<p class="empty">Loading members...</p>
+</section>
+
+<footer>
+<h3>EchoTiers</h3>
+<p>Official Community Members</p>
+</footer>
+
+<script type="module">
+import { getPlayers } from "./players.js";
+
+const grid = document.getElementById("membersGrid");
+
+function escapeHTML(str) {
+  return String(str ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+const hardcodedMembers = [
+  { username: "LowkeyIntrovert", role: "owner", echotier: "A", mctier: "lt4" },
+  { username: "Hollow", role: "co-owner", echotier: "D", mctier: "lt5" }
+];
+
+async function loadMembers() {
+  try {
+    let dbPlayers = [];
+    try {
+      dbPlayers = await getPlayers();
+    } catch (dbErr) {
+      console.warn("Could not fetch database players, displaying hardcoded members only:", dbErr);
+    }
+
+    grid.innerHTML = "";
+
+    // Prevent duplicate usernames if hardcoded members exist in Firestore
+    const hardcodedNames = new Set(hardcodedMembers.map(m => m.username.toLowerCase()));
+    const filteredDbPlayers = dbPlayers.filter(p => !hardcodedNames.has((p.username || "").toLowerCase()));
+
+    const allMembers = [...hardcodedMembers, ...filteredDbPlayers];
+
+    if (allMembers.length === 0) {
+      grid.innerHTML = '<p class="empty">No members yet — be the first to log in!</p>';
+      return;
+    }
+
+    for (const p of allMembers) {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const initial = escapeHTML((p.username || "?").charAt(0).toUpperCase());
+      const roleBadge = p.role ? `<div class="${escapeHTML(p.role)}">${escapeHTML(p.role.toUpperCase())}</div>` : "";
+
+      card.innerHTML = `
+        <div class="avatar">${initial}</div>
+        <h2>${escapeHTML(p.username)}</h2>
+        ${roleBadge}
+        <div class="member">${escapeHTML((p.echotier || "UNRANKED").toUpperCase())} ECHOTIER</div>
+        <p class="mctier">${escapeHTML((p.mctier || "").toUpperCase())} MCTIER</p>
+      `;
+      grid.appendChild(card);
+    }
+  } catch (err) {12
+    console.error("Failed to load members:", err);
+    grid.innerHTML = '<p class="empty">Couldn\'t load members. Check the browser console for details.</p>';
+  }
+}
+
+loadMembers();
+</script>
+</body>
+</html>

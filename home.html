@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoTiers</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(
+135deg,
+#f8fdff,
+#eef9ff,
+#dff4ff
+);
+color:#1f2937;
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(15px);
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:1px solid rgba(0,0,0,.05);
+}
+
+.logo{
+font-size:2rem;
+font-weight:900;
+color:#27a9ff;
+}
+
+.logo span{
+color:#0d5db8;
+}
+
+.nav-links{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+.nav-links a{
+text-decoration:none;
+font-weight:600;
+color:#4b5563;
+transition:.2s;
+}
+
+.nav-links a:hover{
+color:#27a9ff;
+}
+
+.auth{
+display:flex;
+gap:10px;
+}
+
+.auth a{
+padding:10px 18px;
+border-radius:12px;
+text-decoration:none;
+font-weight:700;
+}
+
+.login{
+background:white;
+color:#27a9ff;
+}
+
+.signup{
+background:#27a9ff;
+color:white;
+}
+
+/* HERO */
+
+.hero{
+padding:120px 20px;
+text-align:center;
+max-width:1100px;
+margin:auto;
+}
+
+.hero h1{
+font-size:5rem;
+font-weight:900;
+color:#27a9ff;
+margin-bottom:20px;
+}
+
+.hero h1 span{
+color:#0d5db8;
+}
+
+.hero p{
+font-size:1.1rem;
+max-width:700px;
+margin:auto;
+line-height:1.8;
+color:#64748b;
+}
+
+.tagline{
+font-size:2.6rem;
+font-weight:900;
+color:#1f2937;
+margin-bottom:20px;
+}
+
+.tagline .rotator{
+display:inline-block;
+background:linear-gradient(90deg,#27a9ff,#0d5db8);
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
+transition:opacity .3s ease-in-out, transform .3s ease-in-out;
+}
+
+.hero-buttons{
+margin-top:35px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 28px;
+border-radius:15px;
+font-weight:700;
+text-decoration:none;
+}
+
+.btn-primary{
+background:#27a9ff;
+color:white;
+}
+
+.btn-secondary{
+background:white;
+color:#27a9ff;
+}
+
+/* STATS */
+
+.section{
+max-width:1200px;
+margin:auto;
+padding:60px 20px;
+}
+
+.section h2{
+margin-bottom:25px;
+color:#27a9ff;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.card h3{
+font-size:2.2rem;
+color:#27a9ff;
+margin-bottom:10px;
+}
+
+/* FEED */
+
+.feed{
+display:grid;
+gap:15px;
+}
+
+.feed-item{
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+/* FOOTER */
+
+footer{
+margin-top:80px;
+background:white;
+padding:50px 20px;
+text-align:center;
+}
+
+footer h3{
+color:#27a9ff;
+margin-bottom:10px;
+}
+
+footer p{
+color:#64748b;
+}
+
+@media(max-width:900px){
+
+nav{
+flex-direction:column;
+gap:20px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero h1{
+font-size:3rem;
+}
+
+.tagline{
+font-size:1.5rem;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+Echo<span>Tiers</span>
+</div>
+
+<ul class="nav-links">
+<li><a href="home.html">Home</a></li>
+<li><a href="echotiers.html">EchoTiers</a></li>
+<li><a href="members.html">Members</a></li>
+<li><a href="history.html">History</a></li>
+<li><a href="about.html">About</a></li>
+</ul>
+
+<div class="auth">
+<a href="login.html" class="login">Login</a>
+<a href="login.html" class="signup">Sign Up</a>
+</div> 
+
+</nav>
+
+<section class="hero">
+
+<h1>Echo<span>Tiers</span></h1>
+
+<h2 class="tagline">
+The place for
+<span class="rotator" id="rotator">Sword</span>
+Pvp
+</h2>
+
+<p>
+Discover, play and fight in Minecraft with our FOSS* website built for SMPIA8.
+
+<div class="hero-buttons">
+
+<a href="echotiers.html" class="btn btn-primary">
+View The EchoTier
+</a>
+
+<a href="members.html" class="btn btn-secondary">
+Members
+</a>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Community Statistics</h2>
+
+<div class="stats">
+
+<div class="card">
+<h3>2</h3> 
+<p>Registered Members</p>
+</div>
+
+<div class="card">
+<h3>0</h3>
+<p>Matches Played</p>
+</div>
+
+<div class="card">
+<h3>0</h3>
+<p>Verified Results</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>📢 Announcements</h2>
+
+<div class="feed">
+
+<div class="feed-item">
+Welcome to EchoTiers!
+</div>
+
+<div class="feed-item">
+All rankings start at 100 ELO.
+</div>
+
+<div class="feed-item">
+Non Shitty Match verification system WIP.
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>🏆 Top Players</h2>
+
+<div class="feed">
+
+<div class="feed-item">
+WIP — 0 ELO
+</div>
+
+<div class="feed-item">
+WIP — 0 ELO
+</div>
+
+<div class="feed-item">
+WIP — 0 ELO
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>⚔ Recent Activity</h2>
+
+<div class="feed">
+
+<div class="feed-item">
+No matches have been played yet.
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>EchoGaming</h3>
+
+<p>
+Competitive Minecraft PvP Community
+</p>
+
+<br>
+
+<p>
+EchoTiers • School Minecraft PVP Website (unofficial ofc)
+</p>
+
+<br>
+
+<p>
+© 2026 EchoTiers By LowkeyIntrovert and Hollow
+</p>
+
+</footer>
+
+<script>
+
+const gamemodes = [
+"Sword",
+"Axe",
+"Cart",
+"Crystal",
+"Nethpot",
+"UHC",
+"Mace",
+"SpearMace",
+"Elytra Mace"
+];
+
+const rotator = document.getElementById("rotator");
+
+let index = 0;
+
+setInterval(()=>{
+
+index = (index + 1) % gamemodes.length;
+
+rotator.style.opacity = "0";
+rotator.style.transform = "translateY(8px)";
+
+setTimeout(()=>{
+
+rotator.textContent = gamemodes[index];
+
+rotator.style.opacity = "1";
+rotator.style.transform = "translateY(0)";
+
+},250);
+
+},2750);
+
+</script>
+</body>
+</html>

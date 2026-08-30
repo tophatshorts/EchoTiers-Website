@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoTiers Admin Panel</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#f8fdff,#e6f7ff,#d0efff);
+min-height:100vh;
+padding:40px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+h1{
+color:#29a9ff;
+margin-bottom:25px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+h2{
+margin-bottom:15px;
+color:#29a9ff;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+button{
+background:#29a9ff;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+font-weight:700;
+}
+
+button:hover{
+opacity:.9;
+}
+
+.notice{
+margin-top:10px;
+color:#666;
+font-size:.9rem;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Admin Dashboard</h1>
+
+<div class="card">
+
+<h2>Submit Match</h2>
+
+<input type="text" placeholder="Winner Username">
+
+<input type="text" placeholder="Loser Username">
+
+<input type="number" placeholder="ELO Change">
+
+<button>Submit Match</button>
+
+<p class="notice">
+Future: This will update Discord and rankings automatically.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Create Announcement</h2>
+
+<input type="text" placeholder="Announcement Title">
+
+<input type="text" placeholder="Announcement Content">
+
+<button>Post Announcement</button>
+
+</div>
+
+<div class="card">
+
+<h2>Update Player ELO</h2>
+
+<input type="text" placeholder="Player Username">
+
+<input type="number" placeholder="New ELO">
+
+<button>Update ELO</button>
+
+</div>
+
+</div>
+
+</body>
+</html>
